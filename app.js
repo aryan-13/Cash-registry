@@ -1,3 +1,4 @@
+//Input fields
 const billAmount = document.querySelector('#bill-amnt');
 const cashAmount = document.querySelector('#cash-amnt');
 // BUTTONS
@@ -22,55 +23,55 @@ nextBtn.addEventListener('click', nextBtnClick);
 checkBtn.addEventListener('click', checkBtnClick);
 
 // VARIABLES
-var bill = 0;
-var cash = 0;
+var bill = 0; // BILL AMOUNT
+var cash = 0; // CASH AMOUNT
 
 // button click handlers
 function nextBtnClick() {
-  if (billAmount.value > 0) {
-    invisible.style.display = 'block';
-    errorMsg.style.display = 'none';
-    nextBtn.style.display = 'none';
-    return;
-  } else {
-    return (errorMsg.style.display = 'block');
-  }
+	if (billAmount.value > 0) {
+		invisible.style.display = 'block';
+		errorMsg.style.display = 'none';
+		nextBtn.style.display = 'none';
+		return;
+	} else {
+		return (errorMsg.style.display = 'block');
+	}
 }
 function checkBtnClick() {
-  if (billAmount.value > 0 && cashAmount.value >= billAmount.value) {
-    bill = billAmount.value;
-    cash = cashAmount.value;
-    errorMsg2.style.display = 'none';
-    calculateNotes(bill, cash);
-  } else if (cashAmount.value < billAmount.value) {
-    errorMsg2.innerHTML = 'Cash amount is less than bill amount';
-  } else {
-    errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
-    errorMsg2.style.display = 'block';
-    table.style.display = 'none';
-  }
+	if (billAmount.value > 0 && cashAmount.value >= billAmount.value) {
+		bill = billAmount.value;
+		cash = cashAmount.value;
+		errorMsg2.style.display = 'none';
+		calculateNotes(bill, cash);
+	} else if (cashAmount.value < billAmount.value) {
+		errorMsg2.innerHTML = 'Cash amount is less than bill amount';
+	} else {
+		errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
+		errorMsg2.style.display = 'block';
+		table.style.display = 'none';
+	}
 }
-
+// NOTE CALC
 function calculateNotes(bill, cash) {
-  var diff = cash - bill;
-  console.log(diff);
-  if (diff === 0) {
-    errorMsg2.innerHTML = 'No amount should be returned';
-    errorMsg2.style.display = 'block';
-    return;
-  } else if (diff > 0) {
-    table.style.display = 'block';
+	var diff = cash - bill;
+	console.log(diff);
+	if (diff === 0) {
+		errorMsg2.innerHTML = 'No amount should be returned';
+		errorMsg2.style.display = 'block';
+		return;
+	} else if (diff > 0) {
+		table.style.display = 'block';
 
-    for (var i = 0; i < 7; i++) {
-      var curr = Math.trunc(diff / notes[i]);
-      console.log(i + 'curr: ' + curr);
-      numNotes[i].innerText = curr;
-      diff = diff % notes[i];
-    }
-  } else {
-    errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
-    errorMsg2.style.display = 'block';
-    table.style.display = 'none';
-  }
-  console.log(bill, cash);
+		for (var i = 0; i < 7; i++) {
+			var curr = Math.trunc(diff / notes[i]);
+			console.log(i + 'curr: ' + curr);
+			numNotes[i].innerText = curr;
+			diff = diff % notes[i];
+		}
+	} else {
+		errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
+		errorMsg2.style.display = 'block';
+		table.style.display = 'none';
+	}
+	console.log(bill, cash);
 }
