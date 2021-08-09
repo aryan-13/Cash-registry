@@ -38,18 +38,31 @@ function nextBtnClick() {
 	}
 }
 function checkBtnClick() {
-	if (billAmount.value > 0 && cashAmount.value >= billAmount.value) {
-		bill = billAmount.value;
-		cash = cashAmount.value;
-		errorMsg2.style.display = 'none';
-		calculateNotes(bill, cash);
-	} else if (cashAmount.value < billAmount.value) {
-		errorMsg2.innerHTML = 'Cash amount is less than bill amount';
-	} else {
-		errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
+	bill = Number(billAmount.value);
+	cash = Number(cashAmount.value);
+
+	if (bill < 0 || cash < 0) {
+		errorMsg2.innerHTML = 'Values should be greater than zero!';
 		errorMsg2.style.display = 'block';
 		table.style.display = 'none';
+		return;
+	} else if (cash < bill) {
+		errorMsg2.innerHTML = 'Cash amount is less than bill amount';
+		errorMsg2.style.display = 'block';
+		table.style.display = 'none';
+	} else {
+		errorMsg2.style.display = 'none';
+		calculateNotes(bill, cash);
 	}
+	// 	if (billAmount.value > 0 && cashAmount.value >= billAmount.value) {
+
+	// 	} else if (cashAmount.value < billAmount.value) {
+	// 	} else {
+	// 		errorMsg2.innerHTML = 'Cash is less than bill, please enter right amount';
+	// 		errorMsg2.style.display = 'block';
+	// 		table.style.display = 'none';
+	// 	}
+	// }
 }
 // NOTE CALC
 function calculateNotes(bill, cash) {
